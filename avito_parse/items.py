@@ -9,7 +9,12 @@ from scrapy.loader.processors import MapCompose, TakeFirst
 def clean_author_url(values):
     return f'https://habr.com/ru{values}'
 
-authors = []
+
+def clean_photos(values):
+    if values[:2] == '//':
+        return f'http:{values}'
+    return values
+
 
 class AvitoParseItem(scrapy.Item):
     name = 'Harb_Posts'
@@ -22,6 +27,7 @@ class AvitoParseItem(scrapy.Item):
     post_url = scrapy.Field(output_processor=TakeFirst())
     pass
 
+
 class AuthorParseItem(scrapy.Item):
     name = "Harb_Authors"
     _id = scrapy.Field()
@@ -29,4 +35,15 @@ class AuthorParseItem(scrapy.Item):
     # author_info = scrapy.Field()
     # nickname = scrapy.Field()
     # contacts = scrapy.Field()
+    pass
+
+
+class InstgramParsFeed(scrapy.Item):
+    name = "Instgram_Parse"
+    _id = scrapy.Field()
+    user_name = scrapy.Field(output_processor=TakeFirst())
+    user_id = scrapy.Field(output_processor=TakeFirst())
+    like_count = scrapy.Field(output_processor=TakeFirst())
+    photo_url = scrapy.Field()
+    photo_path = scrapy.Field()
     pass
