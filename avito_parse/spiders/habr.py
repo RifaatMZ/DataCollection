@@ -2,7 +2,7 @@ import scrapy
 from pymongo import MongoClient
 from scrapy.http import Response
 from scrapy.loader import ItemLoader
-from avito_parse.items import AvitoParseItem, AuthorParseItem
+from avito_parse.items import AvitoParseItem
 
 
 class HabrSpider(scrapy.Spider):
